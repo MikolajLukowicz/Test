@@ -5,12 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:SystemAukcyjny.Wpf.Views"
              xmlns:vm="clr-namespace:SystemAukcyjny.Wpf.ViewModels"
-             xmlns:sysauk="clr-namespace:SystemAukcyjny.Wpf"
              mc:Ignorable="d"
-             d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.Resources>
-        <sysauk:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
-    </UserControl.Resources>
+             d:DesignHeight="450" d:DesignWidth="800"
+             Background="White">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -45,8 +42,7 @@
 
                             <StackPanel Grid.Column="1" VerticalAlignment="Center">
                                 <TextBlock Text="{Binding Auction.CenaWywolawcza, StringFormat='Cena wyw.: {0:C}'}"/>
-                                <TextBlock Text="{Binding Auction.KupTeraz, StringFormat='Kup teraz: {0:C}'}" Foreground="Green"
-                                           Visibility="{Binding Auction.KupTeraz, Converter={StaticResource NullToVisibilityConverter}}"/>
+                                <TextBlock Text="{Binding Auction.KupTeraz, StringFormat='Kup teraz: {0:C}'}" Foreground="Green"/>
 
                                 <TextBox Text="{Binding BidAmount, UpdateSourceTrigger=PropertyChanged}"
                                          Margin="0,10,0,5" Width="100"/>

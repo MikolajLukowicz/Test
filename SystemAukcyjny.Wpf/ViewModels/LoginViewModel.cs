@@ -31,7 +31,8 @@ namespace SystemAukcyjny.Wpf.ViewModels
             var user = await _authService.LoginAsync(UserLogin, Password);
             if (user != null)
             {
-                _navigationService.NavigateTo<MainViewModel>();
+                // Navigate to AuctionList after successful login
+                _navigationService.NavigateTo<AuctionListViewModel>();
             }
             else
             {

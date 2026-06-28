@@ -25,6 +25,9 @@ namespace SystemAukcyjny.Wpf.ViewModels
                 IsUserLoggedIn = _authService.CurrentUser != null;
             };
 
+            // Explicitly set initial state
+            IsUserLoggedIn = _authService.CurrentUser != null;
+
             // Start with login
             _navigationService.NavigateTo<LoginViewModel>();
         }

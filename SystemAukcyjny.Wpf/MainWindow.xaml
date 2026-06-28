@@ -7,7 +7,7 @@
         xmlns:vm="clr-namespace:SystemAukcyjny.Wpf.ViewModels"
         xmlns:v="clr-namespace:SystemAukcyjny.Wpf.Views"
         mc:Ignorable="d"
-        Title="Elektroniczny System Informacji Turystycznej - Aukcje" Height="700" Width="1100"
+        Title="Elektroniczny System Informacji Turystycznej" Height="700" Width="1100"
         Background="#F5F5F5">
     <Window.Resources>
         <DataTemplate DataType="{x:Type vm:AuctionListViewModel}">
@@ -37,7 +37,7 @@
         </Grid.ColumnDefinitions>
 
         <!-- Sidebar - Only visible when logged in -->
-        <Border Grid.Column="0" Background="#2C3E50" BorderBrush="#1A252F" BorderThickness="0,0,1,0" Width="220"
+        <Border Grid.Column="0" Background="#2C3E50" Width="220"
                 Visibility="{Binding IsUserLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Grid>
                 <Grid.RowDefinitions>
@@ -47,51 +47,24 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel Grid.Row="0" Margin="0,30,0,40">
-                    <TextBlock Text="SYSTEM" Foreground="White" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center"/>
-                    <TextBlock Text="AUKCYJNY" Foreground="#3498DB" FontSize="18" FontWeight="Light" HorizontalAlignment="Center"/>
+                    <TextBlock Text="ESIT" Foreground="White" FontSize="28" FontWeight="Bold" HorizontalAlignment="Center"/>
+                    <TextBlock Text="System Aukcyjny" Foreground="#3498DB" FontSize="14" HorizontalAlignment="Center"/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="1" Margin="10,0">
-                    <StackPanel.Resources>
-                        <Style TargetType="Button">
-                            <Setter Property="Background" Value="Transparent"/>
-                            <Setter Property="Foreground" Value="#ECF0F1"/>
-                            <Setter Property="BorderThickness" Value="0"/>
-                            <Setter Property="Padding" Value="15,12"/>
-                            <Setter Property="HorizontalContentAlignment" Value="Left"/>
-                            <Setter Property="FontSize" Value="14"/>
-                            <Setter Property="Margin" Value="0,2"/>
-                            <Setter Property="Cursor" Value="Hand"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#34495E"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </StackPanel.Resources>
-
-                    <Button Content="🔍 Przeglądaj Aukcje" Command="{Binding GoToAuctionsCommand}"/>
-                    <Button Content="👤 Moje Aukcje i Wygrane" Command="{Binding GoToMyAuctionsCommand}"/>
-                    <Button Content="➕ Dodaj Nową Aukcję" Command="{Binding GoToAddAuctionCommand}"/>
+                    <Button Content="🔍 Aukcje" Command="{Binding GoToAuctionsCommand}" Margin="0,5" Padding="15,10" Background="Transparent" Foreground="White" BorderThickness="0" HorizontalContentAlignment="Left"/>
+                    <Button Content="👤 Moje Aukcje" Command="{Binding GoToMyAuctionsCommand}" Margin="0,5" Padding="15,10" Background="Transparent" Foreground="White" BorderThickness="0" HorizontalContentAlignment="Left"/>
+                    <Button Content="➕ Dodaj Aukcję" Command="{Binding GoToAddAuctionCommand}" Margin="0,5" Padding="15,10" Background="Transparent" Foreground="White" BorderThickness="0" HorizontalContentAlignment="Left"/>
                 </StackPanel>
 
-                <StackPanel Grid.Row="2" Margin="10,0,10,20">
-                    <Separator Background="#34495E" Margin="0,0,0,10"/>
-                    <Button Content="🚪 Wyloguj" Command="{Binding LogoutCommand}"
-                            Background="#C0392B" Foreground="White" HorizontalContentAlignment="Center">
-                        <Button.Resources>
-                            <Style TargetType="Border">
-                                <Setter Property="CornerRadius" Value="4"/>
-                            </Style>
-                        </Button.Resources>
-                    </Button>
-                </StackPanel>
+                <Button Grid.Row="2" Content="🚪 Wyloguj" Command="{Binding LogoutCommand}"
+                        Margin="15,0,15,20" Padding="10,8" Background="#C0392B" Foreground="White" BorderThickness="0" FontWeight="Bold"/>
             </Grid>
         </Border>
 
         <!-- Content Area -->
         <Grid Grid.Column="1">
-            <ContentControl Content="{Binding CurrentContentViewModel}" Margin="0"/>
+            <ContentControl Content="{Binding CurrentContentViewModel}"/>
         </Grid>
     </Grid>
 </Window>
