@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using SystemAukcyjny.Wpf.Models;
@@ -25,19 +26,39 @@ namespace SystemAukcyjny.Wpf.ViewModels
         [ObservableProperty]
         private string _errorMessage = string.Empty;
 
+        [ObservableProperty]
+        private decimal _currentHighestBid;
+
         public AuctionItemViewModel(Aukcja auction, IAuctionService auctionService, IAuthService authService, AuctionListViewModel parent)
         {
             _auction = auction;
             _auctionService = auctionService;
             _authService = authService;
             _parent = parent;
+            UpdateHighestBid();
+        }
+
+        private void UpdateHighestBid()
+        {
+            var maxBid = Auction.Licytacje.Any()
+                ? Auction.Licytacje.Max(l => l.KwotaLicytacji)
+                : Auction.CenaWywolawcza;
+            CurrentHighestBid = maxBid;
         }
 
         [RelayCommand]
         private async Task PlaceBid()
         {
-            if (decimal.TryParse(BidAmount, out decimal amount))
+            // Use CultureInfo.CurrentCulture to handle comma vs dot separators based on system settings
+            if (decimal.TryParse(BidAmount, NumberStyles.Any, CultureInfo.CurrentCulture, out decimal amount) ||
+                decimal.TryParse(BidAmount, NumberStyles.Any, CultureInfo.InvariantCulture, out amount))
             {
+                if (amount <= CurrentHighestBid)
+                {
+                    ErrorMessage = $"Kwota musi być większa niż {CurrentHighestBid:C}";
+                    return;
+                }
+
                 try
                 {
                     var success = await _auctionService.PlaceBidAsync(Auction.IdAukcji, _authService.CurrentUser!.IdUzytkownika, amount);
@@ -54,7 +75,7 @@ namespace SystemAukcyjny.Wpf.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    ErrorMessage = $"Błąd licytacji: {ex.Message}";
+                    ErrorMessage = $"Błąd licytacji: {ex.InnerException?.Message ?? ex.Message}";
                 }
             }
             else
@@ -96,7 +117,6 @@ namespace SystemAukcyjny.Wpf.ViewModels
             }
             catch (Exception)
             {
-                // Error handling in parent view could be added
             }
         }
 

@@ -41,12 +41,12 @@
                                 <TextBlock Text="{Binding ErrorMessage}" Foreground="Red" FontSize="10" TextWrapping="Wrap"/>
                             </StackPanel>
 
-                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                                <TextBlock Text="{Binding Auction.CenaWywolawcza, StringFormat='Cena wyw.: {0:C}'}"/>
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center" Width="150">
+                                <TextBlock Text="{Binding CurrentHighestBid, StringFormat='Aktualna cena: {0:C}'}" FontWeight="SemiBold" HorizontalAlignment="Right"/>
 
                                 <TextBox Text="{Binding BidAmount, UpdateSourceTrigger=PropertyChanged}"
-                                         Margin="0,10,0,5" Width="100"/>
-                                <Button Content="Licytuj" Command="{Binding PlaceBidCommand}" Padding="5,2"/>
+                                         Margin="0,10,0,5" Width="100" HorizontalAlignment="Right"/>
+                                <Button Content="Licytuj" Command="{Binding PlaceBidCommand}" Padding="5,2" HorizontalAlignment="Right"/>
                             </StackPanel>
                         </Grid>
                     </Border>

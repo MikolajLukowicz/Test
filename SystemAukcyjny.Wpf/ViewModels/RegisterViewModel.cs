@@ -1,5 +1,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System;
 using System.Threading.Tasks;
 using SystemAukcyjny.Wpf.Services;
 
@@ -37,14 +38,22 @@ namespace SystemAukcyjny.Wpf.ViewModels
                 return;
             }
 
-            var success = await _authService.RegisterAsync(Login, Password, Email);
-            if (success)
+            try
             {
-                _navigationService.NavigateTo<LoginViewModel>();
+                var success = await _authService.RegisterAsync(Login, Password, Email);
+                if (success)
+                {
+                    _navigationService.NavigateTo<LoginViewModel>();
+                }
+                else
+                {
+                    ErrorMessage = "Użytkownik o podanym loginie lub emailu już istnieje.";
+                }
             }
-            else
+            catch (Exception ex)
             {
-                ErrorMessage = "Użytkownik o podanym loginie lub emailu już istnieje.";
+                // Catch database constraints (like email format CHECK constraint)
+                ErrorMessage = $"Błąd rejestracji: {ex.InnerException?.Message ?? ex.Message}";
             }
         }
 

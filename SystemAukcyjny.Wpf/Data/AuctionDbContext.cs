@@ -18,7 +18,7 @@ namespace SystemAukcyjny.Wpf.Data
         {
             modelBuilder.Entity<Uzytkownik>(entity =>
             {
-                entity.ToTable("Uzytkownik");
+                entity.ToTable("Uzytkownik", tb => tb.HasTrigger("tr_Uzytkownik"));
                 entity.HasKey(e => e.IdUzytkownika);
                 entity.Property(e => e.IdUzytkownika).HasColumnName("id_uzytkownika");
                 entity.Property(e => e.Login).HasColumnName("login").HasMaxLength(50).IsRequired();
@@ -30,7 +30,7 @@ namespace SystemAukcyjny.Wpf.Data
 
             modelBuilder.Entity<Kategoria>(entity =>
             {
-                entity.ToTable("Kategoria");
+                entity.ToTable("Kategoria", tb => tb.HasTrigger("tr_Kategoria"));
                 entity.HasKey(e => e.IdKategorii);
                 entity.Property(e => e.IdKategorii).HasColumnName("id_kategorii");
                 entity.Property(e => e.NazwaKategorii).HasColumnName("nazwa_kategorii").HasMaxLength(100).IsRequired();
@@ -40,7 +40,7 @@ namespace SystemAukcyjny.Wpf.Data
 
             modelBuilder.Entity<Aukcja>(entity =>
             {
-                entity.ToTable("Aukcja");
+                entity.ToTable("Aukcja", tb => tb.HasTrigger("tr_Aukcja"));
                 entity.HasKey(e => e.IdAukcji);
                 entity.Property(e => e.IdAukcji).HasColumnName("id_aukcji");
                 entity.Property(e => e.Tytul).HasColumnName("tytul").HasMaxLength(150).IsRequired();
@@ -65,7 +65,7 @@ namespace SystemAukcyjny.Wpf.Data
 
             modelBuilder.Entity<Licytacja>(entity =>
             {
-                entity.ToTable("Licytacja");
+                entity.ToTable("Licytacja", tb => tb.HasTrigger("tr_Licytacja"));
                 entity.HasKey(e => e.IdLicytacji);
                 entity.Property(e => e.IdLicytacji).HasColumnName("id_licytacji");
                 entity.Property(e => e.KwotaLicytacji).HasColumnName("kwota_licytacji").HasColumnType("decimal(10,2)");
