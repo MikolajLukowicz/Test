@@ -129,10 +129,8 @@ namespace SystemAukcyjny.Wpf.Services
         public async Task<IEnumerable<Aukcja>> GetUserBiddedAuctionsAsync(int userId)
         {
             using var context = _contextFactory.CreateDbContext();
-            return await context.Licytacje
-                .Where(l => l.IdUzytkownika == userId)
-                .Select(l => l.Aukcja)
-                .Distinct()
+            return await context.Aukcje
+                .Where(a => a.Licytacje.Any(l => l.IdUzytkownika == userId))
                 .Include(a => a.Kategoria)
                 .Include(a => a.Licytacje)
                 .ToListAsync();
