@@ -1,5 +1,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -21,6 +22,9 @@ namespace SystemAukcyjny.Wpf.ViewModels
         [ObservableProperty]
         private string _bidAmount = string.Empty;
 
+        [ObservableProperty]
+        private string _errorMessage = string.Empty;
+
         public AuctionItemViewModel(Aukcja auction, IAuctionService auctionService, IAuthService authService, AuctionListViewModel parent)
         {
             _auction = auction;
@@ -34,11 +38,28 @@ namespace SystemAukcyjny.Wpf.ViewModels
         {
             if (decimal.TryParse(BidAmount, out decimal amount))
             {
-                var success = await _auctionService.PlaceBidAsync(Auction.IdAukcji, _authService.CurrentUser!.IdUzytkownika, amount);
-                if (success)
+                try
                 {
-                    await _parent.FilterAuctions();
+                    var success = await _auctionService.PlaceBidAsync(Auction.IdAukcji, _authService.CurrentUser!.IdUzytkownika, amount);
+                    if (success)
+                    {
+                        await _parent.FilterAuctions();
+                        ErrorMessage = string.Empty;
+                        BidAmount = string.Empty;
+                    }
+                    else
+                    {
+                        ErrorMessage = "Kwota za niska lub aukcja zakończona.";
+                    }
                 }
+                catch (Exception ex)
+                {
+                    ErrorMessage = $"Błąd licytacji: {ex.Message}";
+                }
+            }
+            else
+            {
+                ErrorMessage = "Nieprawidłowa kwota.";
             }
         }
     }
@@ -67,26 +88,39 @@ namespace SystemAukcyjny.Wpf.ViewModels
         [RelayCommand]
         private async Task LoadData()
         {
-            var categories = await _auctionService.GetAllCategoriesAsync();
-            Categories = new ObservableCollection<Kategoria>(categories);
-            await FilterAuctions();
+            try
+            {
+                var categories = await _auctionService.GetAllCategoriesAsync();
+                Categories = new ObservableCollection<Kategoria>(categories);
+                await FilterAuctions();
+            }
+            catch (Exception)
+            {
+                // Error handling in parent view could be added
+            }
         }
 
         [RelayCommand]
         public async Task FilterAuctions()
         {
-            IEnumerable<Aukcja> auctions;
-            if (SelectedCategory != null)
+            try
             {
-                auctions = await _auctionService.GetAuctionsByCategoryAsync(SelectedCategory.IdKategorii);
+                IEnumerable<Aukcja> auctions;
+                if (SelectedCategory != null)
+                {
+                    auctions = await _auctionService.GetAuctionsByCategoryAsync(SelectedCategory.IdKategorii);
+                }
+                else
+                {
+                    auctions = await _auctionService.GetAllAuctionsAsync();
+                }
+                Auctions = new ObservableCollection<AuctionItemViewModel>(
+                    auctions.Select(a => new AuctionItemViewModel(a, _auctionService, _authService, this))
+                );
             }
-            else
+            catch (Exception)
             {
-                auctions = await _auctionService.GetAllAuctionsAsync();
             }
-            Auctions = new ObservableCollection<AuctionItemViewModel>(
-                auctions.Select(a => new AuctionItemViewModel(a, _auctionService, _authService, this))
-            );
         }
     }
 }

@@ -46,7 +46,6 @@ namespace SystemAukcyjny.Wpf.Data
                 entity.Property(e => e.Tytul).HasColumnName("tytul").HasMaxLength(150).IsRequired();
                 entity.Property(e => e.OpisAukcji).HasColumnName("opis_aukcji").HasColumnType("text");
                 entity.Property(e => e.CenaWywolawcza).HasColumnName("cena_wywolawcza").HasColumnType("decimal(10,2)");
-                entity.Property(e => e.KupTeraz).HasColumnName("kup_teraz").HasColumnType("decimal(10,2)");
                 entity.Property(e => e.DataRozpoczecia).HasColumnName("data_rozpoczecia").HasDefaultValueSql("CURRENT_TIMESTAMP");
                 entity.Property(e => e.DataZakonczenia).HasColumnName("data_zakonczenia");
                 entity.Property(e => e.Status).HasColumnName("status").HasMaxLength(20).HasDefaultValue("Aktywna");

@@ -86,13 +86,6 @@ namespace SystemAukcyjny.Wpf.Services
             };
 
             context.Licytacje.Add(bid);
-
-            // Check for Buy It Now
-            if (auction.KupTeraz.HasValue && amount >= auction.KupTeraz.Value)
-            {
-                auction.Status = "Zakończona";
-            }
-
             return await context.SaveChangesAsync() > 0;
         }
 

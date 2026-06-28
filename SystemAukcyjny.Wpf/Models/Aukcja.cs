@@ -9,7 +9,6 @@ namespace SystemAukcyjny.Wpf.Models
         public string Tytul { get; set; } = null!;
         public string? OpisAukcji { get; set; }
         public decimal CenaWywolawcza { get; set; }
-        public decimal? KupTeraz { get; set; }
         public DateTime DataRozpoczecia { get; set; }
         public DateTime DataZakonczenia { get; set; }
         public string Status { get; set; } = "Aktywna";

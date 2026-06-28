@@ -10,22 +10,21 @@
             <TextBlock Text="Dodaj Nową Aukcję" FontSize="20" FontWeight="Bold" Margin="0,0,0,20"/>
 
             <TextBlock Text="Tytuł:"/>
-            <TextBox Text="{Binding Title}" Margin="0,0,0,10"/>
+            <TextBox Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10"/>
 
             <TextBlock Text="Opis:"/>
-            <TextBox Text="{Binding Description}" Height="100" TextWrapping="Wrap" Margin="0,0,0,10"/>
+            <TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" Height="100" TextWrapping="Wrap" Margin="0,0,0,10"/>
 
             <TextBlock Text="Kategoria:"/>
             <ComboBox ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}" DisplayMemberPath="NazwaKategorii" Margin="0,0,0,10"/>
 
             <TextBlock Text="Cena wywoławcza:"/>
-            <TextBox Text="{Binding StartingPrice}" Margin="0,0,0,10"/>
-
-            <TextBlock Text="Kup teraz (opcjonalnie):"/>
-            <TextBox Text="{Binding BuyNowPrice}" Margin="0,0,0,10"/>
+            <TextBox Text="{Binding StartingPrice, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10"/>
 
             <TextBlock Text="Data zakończenia:"/>
-            <DatePicker SelectedDate="{Binding EndDate}" Margin="0,0,0,20"/>
+            <DatePicker SelectedDate="{Binding EndDate}" Margin="0,0,0,10"/>
+
+            <TextBlock Text="{Binding ErrorMessage}" Foreground="Red" TextWrapping="Wrap" Margin="0,0,0,10"/>
 
             <Button Content="Wystaw Aukcję" Command="{Binding AddAuctionCommand}" Padding="10,5"/>
         </StackPanel>
