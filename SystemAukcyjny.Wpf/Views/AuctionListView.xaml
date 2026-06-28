@@ -1,0 +1,61 @@
+<UserControl x:Class="SystemAukcyjny.Wpf.Views.AuctionListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:SystemAukcyjny.Wpf.Views"
+             xmlns:vm="clr-namespace:SystemAukcyjny.Wpf.ViewModels"
+             xmlns:sysauk="clr-namespace:SystemAukcyjny.Wpf"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <sysauk:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
+    </UserControl.Resources>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+            <TextBlock Text="Kategoria: " VerticalAlignment="Center" Margin="0,0,5,0"/>
+            <ComboBox ItemsSource="{Binding Categories}"
+                      SelectedItem="{Binding SelectedCategory}"
+                      DisplayMemberPath="NazwaKategorii"
+                      Width="150" Margin="0,0,10,0"/>
+            <Button Content="Filtruj" Command="{Binding FilterAuctionsCommand}" Padding="10,2"/>
+        </StackPanel>
+
+        <ListView ItemsSource="{Binding Auctions}" Grid.Row="1">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="Gray" BorderThickness="1" Margin="5" Padding="10" Width="700">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Text="{Binding Auction.Tytul}" FontWeight="Bold" FontSize="16"/>
+                                <TextBlock Text="{Binding Auction.Kategoria.NazwaKategorii}" FontStyle="Italic"/>
+                                <TextBlock Text="{Binding Auction.OpisAukcji}" TextWrapping="Wrap" Margin="0,5"/>
+                                <TextBlock Text="{Binding Auction.DataZakonczenia, StringFormat='Kończy się: {0:g}'}"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding Auction.CenaWywolawcza, StringFormat='Cena wyw.: {0:C}'}"/>
+                                <TextBlock Text="{Binding Auction.KupTeraz, StringFormat='Kup teraz: {0:C}'}" Foreground="Green"
+                                           Visibility="{Binding Auction.KupTeraz, Converter={StaticResource NullToVisibilityConverter}}"/>
+
+                                <TextBox Text="{Binding BidAmount, UpdateSourceTrigger=PropertyChanged}"
+                                         Margin="0,10,0,5" Width="100"/>
+                                <Button Content="Licytuj" Command="{Binding PlaceBidCommand}" Padding="5,2"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</UserControl>

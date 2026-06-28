@@ -1,0 +1,97 @@
+<Window x:Class="SystemAukcyjny.Wpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SystemAukcyjny.Wpf"
+        xmlns:vm="clr-namespace:SystemAukcyjny.Wpf.ViewModels"
+        xmlns:v="clr-namespace:SystemAukcyjny.Wpf.Views"
+        mc:Ignorable="d"
+        Title="Elektroniczny System Informacji Turystycznej - Aukcje" Height="700" Width="1100"
+        Background="#F5F5F5">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vm:AuctionListViewModel}">
+            <v:AuctionListView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:MyAuctionsViewModel}">
+            <v:MyAuctionsView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:AddAuctionViewModel}">
+            <v:AddAuctionView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:LoginViewModel}">
+            <v:LoginView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:RegisterViewModel}">
+            <v:RegisterView/>
+        </DataTemplate>
+
+        <local:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Sidebar - Only visible when logged in -->
+        <Border Grid.Column="0" Background="#2C3E50" BorderBrush="#1A252F" BorderThickness="0,0,1,0" Width="220"
+                Visibility="{Binding IsUserLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Margin="0,30,0,40">
+                    <TextBlock Text="SYSTEM" Foreground="White" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center"/>
+                    <TextBlock Text="AUKCYJNY" Foreground="#3498DB" FontSize="18" FontWeight="Light" HorizontalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="1" Margin="10,0">
+                    <StackPanel.Resources>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="Foreground" Value="#ECF0F1"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="Padding" Value="15,12"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                            <Setter Property="FontSize" Value="14"/>
+                            <Setter Property="Margin" Value="0,2"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#34495E"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Resources>
+
+                    <Button Content="🔍 Przeglądaj Aukcje" Command="{Binding GoToAuctionsCommand}"/>
+                    <Button Content="👤 Moje Aukcje i Wygrane" Command="{Binding GoToMyAuctionsCommand}"/>
+                    <Button Content="➕ Dodaj Nową Aukcję" Command="{Binding GoToAddAuctionCommand}"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="2" Margin="10,0,10,20">
+                    <Separator Background="#34495E" Margin="0,0,0,10"/>
+                    <Button Content="🚪 Wyloguj" Command="{Binding LogoutCommand}"
+                            Background="#C0392B" Foreground="White" HorizontalContentAlignment="Center">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="4"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Content Area -->
+        <Grid Grid.Column="1">
+            <ContentControl Content="{Binding CurrentContentViewModel}" Margin="0"/>
+        </Grid>
+    </Grid>
+</Window>
