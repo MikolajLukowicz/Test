@@ -7,7 +7,7 @@
         xmlns:vm="clr-namespace:SystemAukcyjny.Wpf.ViewModels"
         xmlns:v="clr-namespace:SystemAukcyjny.Wpf.Views"
         mc:Ignorable="d"
-        Title="Elektroniczny System Informacji Turystycznej" Height="700" Width="1100"
+        Title="alledrogo 2.0" Height="700" Width="1100"
         Background="#F5F5F5">
     <Window.Resources>
         <DataTemplate DataType="{x:Type vm:AuctionListViewModel}">
@@ -47,8 +47,8 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel Grid.Row="0" Margin="0,30,0,40">
-                    <TextBlock Text="ESIT" Foreground="White" FontSize="28" FontWeight="Bold" HorizontalAlignment="Center"/>
-                    <TextBlock Text="System Aukcyjny" Foreground="#3498DB" FontSize="14" HorizontalAlignment="Center"/>
+                    <TextBlock Text="alledrogo" Foreground="White" FontSize="28" FontWeight="Bold" HorizontalAlignment="Center"/>
+                    <TextBlock Text="wersja 2.0" Foreground="#3498DB" FontSize="14" HorizontalAlignment="Center"/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="1" Margin="10,0">
