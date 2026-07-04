@@ -7,7 +7,7 @@
         xmlns:vm="clr-namespace:SystemAukcyjny.Wpf.ViewModels"
         xmlns:v="clr-namespace:SystemAukcyjny.Wpf.Views"
         mc:Ignorable="d"
-        Title="alledrogo 2.0" Height="700" Width="1100"
+        Title="allegro 2.0" Height="700" Width="1100"
         Background="#F5F5F5">
     <Window.Resources>
         <DataTemplate DataType="{x:Type vm:AuctionListViewModel}">
@@ -37,7 +37,7 @@
         </Grid.ColumnDefinitions>
 
         <!-- Sidebar - Only visible when logged in -->
-        <Border Grid.Column="0" Background="#2C3E50" Width="220"
+        <Border Grid.Column="0" Background="#FF5A00" Width="220"
                 Visibility="{Binding IsUserLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Grid>
                 <Grid.RowDefinitions>
@@ -47,18 +47,18 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel Grid.Row="0" Margin="0,30,0,40">
-                    <TextBlock Text="alledrogo" Foreground="White" FontSize="28" FontWeight="Bold" HorizontalAlignment="Center"/>
-                    <TextBlock Text="wersja 2.0" Foreground="#3498DB" FontSize="14" HorizontalAlignment="Center"/>
+                    <TextBlock Text="allegro" Foreground="White" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center"/>
+                    <TextBlock Text="wersja 2.0" Foreground="White" FontSize="14" HorizontalAlignment="Center" Opacity="0.8"/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="1" Margin="10,0">
-                    <Button Content="🔍 Aukcje" Command="{Binding GoToAuctionsCommand}" Margin="0,5" Padding="15,10" Background="Transparent" Foreground="White" BorderThickness="0" HorizontalContentAlignment="Left"/>
-                    <Button Content="👤 Moje Aukcje" Command="{Binding GoToMyAuctionsCommand}" Margin="0,5" Padding="15,10" Background="Transparent" Foreground="White" BorderThickness="0" HorizontalContentAlignment="Left"/>
-                    <Button Content="➕ Dodaj Aukcję" Command="{Binding GoToAddAuctionCommand}" Margin="0,5" Padding="15,10" Background="Transparent" Foreground="White" BorderThickness="0" HorizontalContentAlignment="Left"/>
+                    <Button Content="🔍 Aukcje" Command="{Binding GoToAuctionsCommand}" Margin="0,5" Padding="15,10" Background="Transparent" Foreground="White" BorderThickness="0" HorizontalContentAlignment="Left" FontWeight="SemiBold"/>
+                    <Button Content="👤 Moje Aukcje" Command="{Binding GoToMyAuctionsCommand}" Margin="0,5" Padding="15,10" Background="Transparent" Foreground="White" BorderThickness="0" HorizontalContentAlignment="Left" FontWeight="SemiBold"/>
+                    <Button Content="➕ Dodaj Aukcję" Command="{Binding GoToAddAuctionCommand}" Margin="0,5" Padding="15,10" Background="Transparent" Foreground="White" BorderThickness="0" HorizontalContentAlignment="Left" FontWeight="SemiBold"/>
                 </StackPanel>
 
                 <Button Grid.Row="2" Content="🚪 Wyloguj" Command="{Binding LogoutCommand}"
-                        Margin="15,0,15,20" Padding="10,8" Background="#C0392B" Foreground="White" BorderThickness="0" FontWeight="Bold"/>
+                        Margin="15,0,15,20" Padding="10,8" Background="#333333" Foreground="White" BorderThickness="0" FontWeight="Bold"/>
             </Grid>
         </Border>
 

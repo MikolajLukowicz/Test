@@ -3,11 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:SystemAukcyjny.Wpf.Views"
-             xmlns:vm="clr-namespace:SystemAukcyjny.Wpf.ViewModels"
+             xmlns:sysauk="clr-namespace:SystemAukcyjny.Wpf"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800"
              Background="White">
+    <UserControl.Resources>
+        <sysauk:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
+    </UserControl.Resources>
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -15,38 +17,38 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
-            <TextBlock Text="Kategoria: " VerticalAlignment="Center" Margin="0,0,5,0"/>
+            <TextBlock Text="Kategoria: " VerticalAlignment="Center" Margin="0,0,5,0" FontWeight="SemiBold"/>
             <ComboBox ItemsSource="{Binding Categories}"
                       SelectedItem="{Binding SelectedCategory}"
                       DisplayMemberPath="NazwaKategorii"
                       Width="150" Margin="0,0,10,0"/>
-            <Button Content="Filtruj" Command="{Binding FilterAuctionsCommand}" Padding="10,2"/>
+            <Button Content="Filtruj" Command="{Binding FilterAuctionsCommand}" Padding="15,2" Background="#FF5A00" Foreground="White" BorderThickness="0" FontWeight="Bold"/>
         </StackPanel>
 
         <ListView ItemsSource="{Binding Auctions}" Grid.Row="1">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Border BorderBrush="Gray" BorderThickness="1" Margin="5" Padding="10" Width="700">
+                    <Border BorderBrush="#DDD" BorderThickness="1" Margin="5" Padding="15" Width="720" CornerRadius="5" Background="#FCFCFC">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="200"/>
                             </Grid.ColumnDefinitions>
 
                             <StackPanel Grid.Column="0">
-                                <TextBlock Text="{Binding Auction.Tytul}" FontWeight="Bold" FontSize="16"/>
-                                <TextBlock Text="{Binding Auction.Kategoria.NazwaKategorii}" FontStyle="Italic"/>
-                                <TextBlock Text="{Binding Auction.OpisAukcji}" TextWrapping="Wrap" Margin="0,5"/>
-                                <TextBlock Text="{Binding Auction.DataZakonczenia, StringFormat='Kończy się: {0:g}'}"/>
-                                <TextBlock Text="{Binding ErrorMessage}" Foreground="Red" FontSize="10" TextWrapping="Wrap"/>
+                                <TextBlock Text="{Binding Auction.Tytul}" FontWeight="Bold" FontSize="18" Foreground="#333"/>
+                                <TextBlock Text="{Binding Auction.Kategoria.NazwaKategorii}" FontStyle="Italic" Foreground="#777"/>
+                                <TextBlock Text="{Binding Auction.OpisAukcji}" TextWrapping="Wrap" Margin="0,8" Foreground="#444"/>
+                                <TextBlock Text="{Binding Auction.DataZakonczenia, StringFormat='Koniec: {0:g}'}" Foreground="#FF5A00" FontWeight="SemiBold"/>
+                                <TextBlock Text="{Binding ErrorMessage}" Foreground="Red" FontSize="10" TextWrapping="Wrap" Margin="0,5,0,0"/>
                             </StackPanel>
 
-                            <StackPanel Grid.Column="1" VerticalAlignment="Center" Width="150">
-                                <TextBlock Text="{Binding CurrentHighestBid, StringFormat='Aktualna cena: {0:C}'}" FontWeight="SemiBold" HorizontalAlignment="Right"/>
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center" Width="180">
+                                <TextBlock Text="{Binding CurrentHighestBid, StringFormat='Cena: {0:C}'}" FontSize="20" FontWeight="Bold" Foreground="#333" HorizontalAlignment="Right"/>
 
                                 <TextBox Text="{Binding BidAmount, UpdateSourceTrigger=PropertyChanged}"
-                                         Margin="0,10,0,5" Width="100" HorizontalAlignment="Right"/>
-                                <Button Content="Licytuj" Command="{Binding PlaceBidCommand}" Padding="5,2" HorizontalAlignment="Right"/>
+                                         Margin="0,15,0,5" Width="100" HorizontalAlignment="Right" Padding="3"/>
+                                <Button Content="LICYTUJ" Command="{Binding PlaceBidCommand}" Padding="10,5" HorizontalAlignment="Right" Background="#FF5A00" Foreground="White" FontWeight="Bold" BorderThickness="0"/>
                             </StackPanel>
                         </Grid>
                     </Border>

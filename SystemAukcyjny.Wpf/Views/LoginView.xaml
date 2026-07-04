@@ -6,12 +6,12 @@
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="400">
     <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
-        <Border BorderBrush="#2196F3" BorderThickness="2" Padding="30" CornerRadius="10" Background="White">
+        <Border BorderBrush="#FF5A00" BorderThickness="2" Padding="30" CornerRadius="10" Background="White">
             <Border.Effect>
                 <DropShadowEffect BlurRadius="15" Direction="270" RenderingBias="Quality" ShadowDepth="1" Color="Gray"/>
             </Border.Effect>
             <StackPanel Width="250">
-                <TextBlock Text="LOGOWANIE" FontSize="26" FontWeight="ExtraBold" Foreground="#1976D2" HorizontalAlignment="Center" Margin="0,0,0,25"/>
+                <TextBlock Text="LOGOWANIE" FontSize="26" FontWeight="ExtraBold" Foreground="#FF5A00" HorizontalAlignment="Center" Margin="0,0,0,25"/>
 
                 <TextBlock Text="Login:" FontWeight="SemiBold" Margin="0,0,0,5"/>
                 <TextBox Text="{Binding UserLogin, UpdateSourceTrigger=PropertyChanged}" Padding="5" Margin="0,0,0,15"/>
@@ -21,15 +21,10 @@
 
                 <TextBlock Text="{Binding ErrorMessage}" Foreground="Red" FontSize="11" Margin="0,0,0,15" TextWrapping="Wrap" HorizontalAlignment="Center"/>
 
-                <Button Content="Zaloguj" Command="{Binding AuthenticateCommand}" Padding="10,8" Background="#2196F3" Foreground="White" FontWeight="Bold" Cursor="Hand">
-                    <Button.Resources>
-                        <Style TargetType="Border">
-                            <Setter Property="CornerRadius" Value="5"/>
-                        </Style>
-                    </Button.Resources>
+                <Button Content="Zaloguj" Command="{Binding AuthenticateCommand}" Padding="10,8" Background="#FF5A00" Foreground="White" FontWeight="Bold" Cursor="Hand">
                 </Button>
 
-                <Button Content="Nie masz konta? Zarejestruj się" Command="{Binding GoToRegisterCommand}" Background="Transparent" BorderThickness="0" Foreground="#1976D2" Margin="0,15,0,0" Cursor="Hand" TextElement.FontSize="12"/>
+                <Button Content="Nie masz konta? Zarejestruj się" Command="{Binding GoToRegisterCommand}" Background="Transparent" BorderThickness="0" Foreground="#FF5A00" Margin="0,15,0,0" Cursor="Hand" TextElement.FontSize="12"/>
             </StackPanel>
         </Border>
     </Grid>

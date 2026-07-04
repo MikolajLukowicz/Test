@@ -6,27 +6,32 @@
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="400">
     <Grid Margin="20">
-        <StackPanel>
-            <TextBlock Text="Dodaj Nową Aukcję" FontSize="20" FontWeight="Bold" Margin="0,0,0,20"/>
+        <Border Background="White" CornerRadius="10" Padding="30" BorderBrush="#DDD" BorderThickness="1">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="10" ShadowDepth="1" Color="#EEE"/>
+            </Border.Effect>
+            <StackPanel Width="350">
+                <TextBlock Text="Wystaw nową aukcję" FontSize="24" FontWeight="Bold" Foreground="#FF5A00" Margin="0,0,0,20"/>
 
-            <TextBlock Text="Tytuł:"/>
-            <TextBox Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10"/>
+                <TextBlock Text="Tytuł przedmiotu:" FontWeight="SemiBold"/>
+                <TextBox Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" Margin="0,5,0,15" Padding="5"/>
 
-            <TextBlock Text="Opis:"/>
-            <TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" Height="100" TextWrapping="Wrap" Margin="0,0,0,10"/>
+                <TextBlock Text="Opis:" FontWeight="SemiBold"/>
+                <TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" Height="80" TextWrapping="Wrap" Margin="0,5,0,15" Padding="5" AcceptsReturn="True"/>
 
-            <TextBlock Text="Kategoria:"/>
-            <ComboBox ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}" DisplayMemberPath="NazwaKategorii" Margin="0,0,0,10"/>
+                <TextBlock Text="Kategoria:" FontWeight="SemiBold"/>
+                <ComboBox ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}" DisplayMemberPath="NazwaKategorii" Margin="0,5,0,15" Padding="5"/>
 
-            <TextBlock Text="Cena wywoławcza:"/>
-            <TextBox Text="{Binding StartingPrice, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10"/>
+                <TextBlock Text="Cena wywoławcza (zł):" FontWeight="SemiBold"/>
+                <TextBox Text="{Binding StartingPrice, UpdateSourceTrigger=PropertyChanged}" Margin="0,5,0,15" Padding="5"/>
 
-            <TextBlock Text="Data zakończenia:"/>
-            <DatePicker SelectedDate="{Binding EndDate}" Margin="0,0,0,10"/>
+                <TextBlock Text="Data zakończenia:" FontWeight="SemiBold"/>
+                <DatePicker SelectedDate="{Binding EndDate}" Margin="0,5,0,20" Padding="5"/>
 
-            <TextBlock Text="{Binding ErrorMessage}" Foreground="Red" TextWrapping="Wrap" Margin="0,0,0,10"/>
+                <TextBlock Text="{Binding ErrorMessage}" Foreground="Red" TextWrapping="Wrap" Margin="0,0,0,15" FontSize="12"/>
 
-            <Button Content="Wystaw Aukcję" Command="{Binding AddAuctionCommand}" Padding="10,5"/>
-        </StackPanel>
+                <Button Content="WYSTAW PRZEDMIOT" Command="{Binding AddAuctionCommand}" Padding="15,10" Background="#FF5A00" Foreground="White" FontWeight="Bold" BorderThickness="0"/>
+            </StackPanel>
+        </Border>
     </Grid>
 </UserControl>
