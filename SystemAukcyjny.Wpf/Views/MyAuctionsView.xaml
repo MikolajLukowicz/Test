@@ -25,9 +25,9 @@
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Grid.Column="0">
-                                    <TextBlock Text="{Binding Tytul}" FontWeight="Bold" FontSize="16"/>
-                                    <TextBlock Text="{Binding Status}" Foreground="#FF5A00" FontWeight="SemiBold"/>
-                                    <TextBlock Text="{Binding CenaWywolawcza, StringFormat='Cena wyw.: {0:C}'}" Margin="0,5,0,0"/>
+                                    <TextBlock Text="{Binding Auction.Tytul}" FontWeight="Bold" FontSize="16"/>
+                                    <TextBlock Text="{Binding Auction.Status}" Foreground="#FF5A00" FontWeight="SemiBold"/>
+                                    <TextBlock Text="{Binding WinningAmount, StringFormat='Cena: {0:N2} zł'}" Margin="0,5,0,0"/>
                                 </StackPanel>
                                 <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
                                     <Button Content="Zakończ" Command="{Binding DataContext.EndAuctionCommand, RelativeSource={RelativeSource AncestorType=ListView}}" CommandParameter="{Binding}" Margin="0,0,10,0" Padding="10,5"/>
@@ -62,7 +62,7 @@
                             <StackPanel>
                                 <TextBlock Text="{Binding Auction.Tytul}" FontWeight="Bold" FontSize="18" Foreground="#333"/>
                                 <TextBlock Text="GRATULACJE! Wygałeś tę aukcję." Foreground="#27AE60" FontWeight="Bold" Margin="0,5"/>
-                                <TextBlock Text="{Binding WinningAmount, StringFormat='Kwota wygranej: {0:C}'}" FontWeight="ExtraBold" FontSize="16" Foreground="#FF5A00"/>
+                                <TextBlock Text="{Binding WinningAmount, StringFormat='Kwota wygranej: {0:N2} zł'}" FontWeight="ExtraBold" FontSize="16" Foreground="#FF5A00"/>
                             </StackPanel>
                         </Border>
                     </DataTemplate>

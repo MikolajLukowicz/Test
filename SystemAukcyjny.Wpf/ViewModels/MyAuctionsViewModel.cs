@@ -19,7 +19,10 @@ namespace SystemAukcyjny.Wpf.ViewModels
         public MyAuctionItemViewModel(Aukcja auction)
         {
             _auction = auction;
-            _winningAmount = auction.Licytacje.OrderByDescending(l => l.KwotaLicytacji).FirstOrDefault()?.KwotaLicytacji ?? auction.CenaWywolawcza;
+            // Get the highest bid or starting price
+            _winningAmount = auction.Licytacje.Any()
+                ? auction.Licytacje.Max(l => l.KwotaLicytacji)
+                : auction.CenaWywolawcza;
         }
     }
 
@@ -29,7 +32,7 @@ namespace SystemAukcyjny.Wpf.ViewModels
         private readonly IAuthService _authService;
 
         [ObservableProperty]
-        private ObservableCollection<Aukcja> _myAuctions = new();
+        private ObservableCollection<MyAuctionItemViewModel> _myAuctions = new();
 
         [ObservableProperty]
         private ObservableCollection<Aukcja> _biddedAuctions = new();
@@ -48,7 +51,10 @@ namespace SystemAukcyjny.Wpf.ViewModels
         private async Task LoadData()
         {
             int userId = _authService.CurrentUser!.IdUzytkownika;
-            MyAuctions = new ObservableCollection<Aukcja>(await _auctionService.GetUserAuctionsAsync(userId));
+
+            var owned = await _auctionService.GetUserAuctionsAsync(userId);
+            MyAuctions = new ObservableCollection<MyAuctionItemViewModel>(owned.Select(a => new MyAuctionItemViewModel(a)));
+
             BiddedAuctions = new ObservableCollection<Aukcja>(await _auctionService.GetUserBiddedAuctionsAsync(userId));
 
             var won = await _auctionService.GetUserWonAuctionsAsync(userId);
@@ -56,18 +62,18 @@ namespace SystemAukcyjny.Wpf.ViewModels
         }
 
         [RelayCommand]
-        private async Task DeleteAuction(Aukcja auction)
+        private async Task DeleteAuction(MyAuctionItemViewModel item)
         {
-            if (await _auctionService.DeleteAuctionAsync(auction.IdAukcji))
+            if (await _auctionService.DeleteAuctionAsync(item.Auction.IdAukcji))
             {
                 await LoadData();
             }
         }
 
         [RelayCommand]
-        private async Task EndAuction(Aukcja auction)
+        private async Task EndAuction(MyAuctionItemViewModel item)
         {
-            if (await _auctionService.EndAuctionAsync(auction.IdAukcji))
+            if (await _auctionService.EndAuctionAsync(item.Auction.IdAukcji))
             {
                 await LoadData();
             }

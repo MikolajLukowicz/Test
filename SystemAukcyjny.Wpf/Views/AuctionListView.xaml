@@ -3,13 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:sysauk="clr-namespace:SystemAukcyjny.Wpf"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800"
              Background="White">
-    <UserControl.Resources>
-        <sysauk:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
-    </UserControl.Resources>
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -44,7 +40,7 @@
                             </StackPanel>
 
                             <StackPanel Grid.Column="1" VerticalAlignment="Center" Width="180">
-                                <TextBlock Text="{Binding CurrentHighestBid, StringFormat='Cena: {0:C}'}" FontSize="20" FontWeight="Bold" Foreground="#333" HorizontalAlignment="Right"/>
+                                <TextBlock Text="{Binding CurrentHighestBid, StringFormat='{}{0:N2} zł'}" FontSize="20" FontWeight="Bold" Foreground="#333" HorizontalAlignment="Right"/>
 
                                 <TextBox Text="{Binding BidAmount, UpdateSourceTrigger=PropertyChanged}"
                                          Margin="0,15,0,5" Width="100" HorizontalAlignment="Right" Padding="3"/>
