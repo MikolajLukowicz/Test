@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -35,7 +35,7 @@ namespace SystemAukcyjny.Wpf.ViewModels
         private ObservableCollection<MyAuctionItemViewModel> _myAuctions = new();
 
         [ObservableProperty]
-        private ObservableCollection<Aukcja> _biddedAuctions = new();
+        private ObservableCollection<MyAuctionItemViewModel> _biddedAuctions = new();
 
         [ObservableProperty]
         private ObservableCollection<MyAuctionItemViewModel> _wonAuctions = new();
@@ -55,7 +55,8 @@ namespace SystemAukcyjny.Wpf.ViewModels
             var owned = await _auctionService.GetUserAuctionsAsync(userId);
             MyAuctions = new ObservableCollection<MyAuctionItemViewModel>(owned.Select(a => new MyAuctionItemViewModel(a)));
 
-            BiddedAuctions = new ObservableCollection<Aukcja>(await _auctionService.GetUserBiddedAuctionsAsync(userId));
+            var bidded = await _auctionService.GetUserBiddedAuctionsAsync(userId);
+            BiddedAuctions = new ObservableCollection<MyAuctionItemViewModel>(bidded.Select(a => new MyAuctionItemViewModel(a)));
 
             var won = await _auctionService.GetUserWonAuctionsAsync(userId);
             WonAuctions = new ObservableCollection<MyAuctionItemViewModel>(won.Select(a => new MyAuctionItemViewModel(a)));
