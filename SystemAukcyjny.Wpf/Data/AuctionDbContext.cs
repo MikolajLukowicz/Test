@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using SystemAukcyjny.Wpf.Models;
 
 namespace SystemAukcyjny.Wpf.Data

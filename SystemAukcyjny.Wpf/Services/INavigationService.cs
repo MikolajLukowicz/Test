@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using SystemAukcyjny.Wpf.ViewModels;
 
 namespace SystemAukcyjny.Wpf.Services

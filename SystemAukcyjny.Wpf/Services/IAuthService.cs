@@ -1,4 +1,4 @@
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using SystemAukcyjny.Wpf.Models;
 
 namespace SystemAukcyjny.Wpf.Services

@@ -1,4 +1,4 @@
-namespace SystemAukcyjny.Wpf.Views
+﻿namespace SystemAukcyjny.Wpf.Views
 {
     public partial class AddAuctionView
     {
