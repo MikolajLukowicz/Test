@@ -42,6 +42,9 @@ namespace SystemAukcyjny.Wpf.ViewModels
         private void GoToAddAuction() => _navigationService.NavigateTo<AddAuctionViewModel>();
 
         [RelayCommand]
+        private void GoToInvestmentBot() => _navigationService.NavigateTo<InvestmentBotViewModel>();
+
+        [RelayCommand]
         private void Logout()
         {
             _authService.Logout();

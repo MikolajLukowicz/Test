@@ -1,0 +1,155 @@
+<UserControl x:Class="SystemAukcyjny.Wpf.Views.InvestmentBotView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:DesignHeight="700" d:DesignWidth="850"
+             Background="#F8F9FA">
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Background="White" CornerRadius="8" Padding="15" Margin="0,0,0,10">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="10" Color="#000" Opacity="0.05" ShadowDepth="2"/>
+            </Border.Effect>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="🤖 Bot Inwestycyjny i Analizy Rynkowe" FontSize="22" FontWeight="Bold" Foreground="#333"/>
+                    <TextBlock Text="{Binding StatusText}" FontSize="14" FontWeight="SemiBold" Foreground="#666" Margin="0,5,0,0"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button Content="Uruchom / Zatrzymaj Bota" Command="{Binding ToggleBotCommand}"
+                            Padding="15,8" Margin="0,0,10,0" Background="#FF5A00" Foreground="White" FontWeight="Bold" BorderThickness="0"/>
+                    <Button Content="Skanuj Teraz" Command="{Binding RunManualAnalysisCommand}"
+                            Padding="15,8" Background="#007ACC" Foreground="White" FontWeight="Bold" BorderThickness="0"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- KPI Cards -->
+        <Grid Grid.Row="1" Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Card 1 -->
+            <Border Grid.Column="0" Background="White" CornerRadius="8" Padding="15" Margin="0,0,5,0">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="8" Color="#000" Opacity="0.04" ShadowDepth="2"/>
+                </Border.Effect>
+                <StackPanel>
+                    <TextBlock Text="ANALIZOWANE AUKCJE" FontSize="11" FontWeight="Bold" Foreground="#888"/>
+                    <TextBlock Text="{Binding TotalAnalyzedCount}" FontSize="24" FontWeight="Bold" Foreground="#222" Margin="0,5,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Card 2 -->
+            <Border Grid.Column="1" Background="White" CornerRadius="8" Padding="15" Margin="5,0,5,0">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="8" Color="#000" Opacity="0.04" ShadowDepth="2"/>
+                </Border.Effect>
+                <StackPanel>
+                    <TextBlock Text="SYGNAŁY 'KUP'" FontSize="11" FontWeight="Bold" Foreground="#888"/>
+                    <TextBlock Text="{Binding ActiveBuySignalsCount}" FontSize="24" FontWeight="Bold" Foreground="#28A745" Margin="0,5,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Card 3 -->
+            <Border Grid.Column="2" Background="White" CornerRadius="8" Padding="15" Margin="5,0,0,0">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="8" Color="#000" Opacity="0.04" ShadowDepth="2"/>
+                </Border.Effect>
+                <StackPanel>
+                    <TextBlock Text="ZŁOŻONE OFERTY" FontSize="11" FontWeight="Bold" Foreground="#888"/>
+                    <TextBlock Text="{Binding TotalBidsExecutedCount}" FontSize="24" FontWeight="Bold" Foreground="#007ACC" Margin="0,5,0,0"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <!-- Bot Settings Bar -->
+        <Border Grid.Row="2" Background="White" CornerRadius="8" Padding="15" Margin="0,0,0,10">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="8" Color="#000" Opacity="0.04" ShadowDepth="2"/>
+            </Border.Effect>
+            <WrapPanel VerticalAlignment="Center">
+                <StackPanel Orientation="Horizontal" Margin="0,0,20,5">
+                    <TextBlock Text="Strategia: " VerticalAlignment="Center" FontWeight="SemiBold"/>
+                    <ComboBox ItemsSource="{Binding Strategies}" SelectedItem="{Binding SelectedStrategy}" Width="130" Margin="5,0,0,0"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,20,5">
+                    <TextBlock Text="Max Kwota (PLN): " VerticalAlignment="Center" FontWeight="SemiBold"/>
+                    <TextBox Text="{Binding MaxBidLimit, UpdateSourceTrigger=PropertyChanged}" Width="80" Margin="5,0,0,0" Padding="3"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,20,5">
+                    <TextBlock Text="Min ROI (%): " VerticalAlignment="Center" FontWeight="SemiBold"/>
+                    <TextBox Text="{Binding TargetMinRoiPercentage, UpdateSourceTrigger=PropertyChanged}" Width="60" Margin="5,0,0,0" Padding="3"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,20,5">
+                    <TextBlock Text="Interval (s): " VerticalAlignment="Center" FontWeight="SemiBold"/>
+                    <TextBox Text="{Binding ScanIntervalSeconds, UpdateSourceTrigger=PropertyChanged}" Width="50" Margin="5,0,0,0" Padding="3"/>
+                </StackPanel>
+
+                <CheckBox Content="Automatyczne Licytowanie" IsChecked="{Binding AutoBidEnabled}" VerticalAlignment="Center" FontWeight="SemiBold" Margin="0,0,20,5"/>
+
+                <Button Content="Zapisz Ustawienia" Command="{Binding ApplySettingsCommand}" Padding="10,4" Background="#6C757D" Foreground="White" FontWeight="Bold" BorderThickness="0"/>
+            </WrapPanel>
+        </Border>
+
+        <!-- Tabs for Analysis and Logs -->
+        <TabControl Grid.Row="3" Background="White" BorderThickness="0">
+            <!-- Tab 1: Market Analysis & Indicators -->
+            <TabItem Header="📊 Analiza Rynku &amp; Wskaźniki" HeaderTemplate="{x:Null}">
+                <DataGrid ItemsSource="{Binding Analyses}" AutoGenerateColumns="False" IsReadOnly="True"
+                          GridLinesVisibility="Horizontal" HeadersVisibility="Column" Background="White" RowHeaderWidth="0">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Aukcja" Binding="{Binding Auction.Tytul}" Width="2*"/>
+                        <DataGridTextColumn Header="Cena Akt." Binding="{Binding CurrentPrice, StringFormat='{}{0:N2} zł'}" Width="1*"/>
+                        <DataGridTextColumn Header="Nastepna" Binding="{Binding NextBidAmount, StringFormat='{}{0:N2} zł'}" Width="1*"/>
+                        <DataGridTextColumn Header="Wartość Fair" Binding="{Binding EstimatedFairValue, StringFormat='{}{0:N2} zł'}" Width="1*"/>
+                        <DataGridTextColumn Header="Przew. ROI" Binding="{Binding ExpectedRoiPercentage, StringFormat='{}{0:F1}%'}" Width="1*"/>
+                        <DataGridTextColumn Header="Momentum" Binding="{Binding DemandMomentumIndex, StringFormat='{}{0:F0}'}" Width="1*"/>
+                        <DataGridTextColumn Header="P/V" Binding="{Binding PriceToValueRatio, StringFormat='{}{0:F2}'}" Width="1*"/>
+                        <DataGridTextColumn Header="Ryzyko" Binding="{Binding RiskScore, StringFormat='{}{0:F0}'}" Width="1*"/>
+                        <DataGridTextColumn Header="Sygnał Decyzyjny" Binding="{Binding Signal}" Width="1.5*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+
+            <!-- Tab 2: Activity Logs -->
+            <TabItem Header="📜 Dziennik Zdarzeń Bota">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Button Grid.Row="0" Content="Wyszczyść Dziennik" Command="{Binding ClearLogsCommand}" HorizontalAlignment="Right" Margin="5" Padding="10,3" Background="#DC3545" Foreground="White" BorderThickness="0" FontWeight="Bold"/>
+                    <DataGrid Grid.Row="1" ItemsSource="{Binding Logs}" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column" Background="White" RowHeaderWidth="0">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Czas" Binding="{Binding Timestamp, StringFormat='{}{0:HH:mm:ss}'}" Width="80"/>
+                            <DataGridTextColumn Header="Poziom" Binding="{Binding Level}" Width="90"/>
+                            <DataGridTextColumn Header="Komunikat / Zdarzenie" Binding="{Binding Message}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

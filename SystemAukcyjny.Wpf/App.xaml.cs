@@ -24,6 +24,7 @@ namespace SystemAukcyjny.Wpf
             services.AddSingleton<INavigationService, NavigationService>();
             services.AddSingleton<IAuthService, AuthService>();
             services.AddSingleton<IAuctionService, AuctionService>();
+            services.AddSingleton<IInvestmentBotService, InvestmentBotService>();
 
             // Configure ViewModels
             services.AddSingleton<MainViewModel>();
@@ -32,6 +33,7 @@ namespace SystemAukcyjny.Wpf
             services.AddTransient<AuctionListViewModel>();
             services.AddTransient<MyAuctionsViewModel>();
             services.AddTransient<AddAuctionViewModel>();
+            services.AddTransient<InvestmentBotViewModel>();
 
             // Configure Main Window
             services.AddSingleton<MainWindow>(s => new MainWindow()

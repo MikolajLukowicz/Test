@@ -19,6 +19,9 @@
         <DataTemplate DataType="{x:Type vm:AddAuctionViewModel}">
             <v:AddAuctionView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:InvestmentBotViewModel}">
+            <v:InvestmentBotView/>
+        </DataTemplate>
         <DataTemplate DataType="{x:Type vm:LoginViewModel}">
             <v:LoginView/>
         </DataTemplate>
@@ -55,6 +58,7 @@
                     <Button Content="🔍 Aukcje" Command="{Binding GoToAuctionsCommand}" Margin="0,5" Padding="15,10" Background="Transparent" Foreground="White" BorderThickness="0" HorizontalContentAlignment="Left" FontWeight="SemiBold"/>
                     <Button Content="👤 Moje Aukcje" Command="{Binding GoToMyAuctionsCommand}" Margin="0,5" Padding="15,10" Background="Transparent" Foreground="White" BorderThickness="0" HorizontalContentAlignment="Left" FontWeight="SemiBold"/>
                     <Button Content="➕ Dodaj Aukcję" Command="{Binding GoToAddAuctionCommand}" Margin="0,5" Padding="15,10" Background="Transparent" Foreground="White" BorderThickness="0" HorizontalContentAlignment="Left" FontWeight="SemiBold"/>
+                    <Button Content="🤖 Bot Inwestycyjny" Command="{Binding GoToInvestmentBotCommand}" Margin="0,5" Padding="15,10" Background="Transparent" Foreground="White" BorderThickness="0" HorizontalContentAlignment="Left" FontWeight="SemiBold"/>
                 </StackPanel>
 
                 <Button Grid.Row="2" Content="🚪 Wyloguj" Command="{Binding LogoutCommand}"
